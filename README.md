@@ -126,7 +126,7 @@ file.close()
 
 While file I/O streaming and many other options exist, for this assignment we can simply write within the main `for` or `while` loop.
 
-Note: We do not redirect stdout to a file via the command line e.g. `python -m sp_iotsim.client > dat.json` because this bypasses Python exception handling. While redirection is useful for debugging, in general project use it's usually not the best choice.
+Note: We **do not** redirect stdout to a file via the command line e.g. `python -m sp_iotsim.client > dat.json` because this bypasses Python exception handling. While redirection is useful for debugging, in general project use it's usually not the best choice.
 
 #### Task 1 points
 
@@ -156,7 +156,7 @@ I don't think Xarray is necessary for this miniproject.
 
 Note: Include the code you used to make these determinations in a .py file e.g. analyze.py or whatever you choose to name it.
 
-The first 3 questions here are for a single room of your choice. The fourth question is time interval across all rooms, because the simulator generates a random time interval across all room types, that is each room has the same statistical time interval distribution.
+The first 3 questions here are for **a single room of your choice.** The fourth question is time interval across all rooms, because the simulator generates a random time interval across all room types, that is each room has the same statistical time interval distribution.
 
 1. what are the median and variance observed from the temperature data (at least 100 values)  [3 points]
 2. what are the median and variance observed from the occupancy data (at least 100 values)  [3 points]
