@@ -1,5 +1,6 @@
 import sp_iotsim.server as server
 import sp_iotsim.client as client
+import sp_iotsim.fileio as fio
 import random
 import asyncio
 import pytest
@@ -21,7 +22,27 @@ def test_generate():
     assert sorted(dat.keys()) == ["co2", "occupancy", "temperature", "time"], "wrong keys"
 
 
-@pytest.mark.timeout(20)
-def test_server(servlet):
-    asyncio.run(client.main(8765, "localhost", 5))
+def test_need_logcode(servlet, tmp_path):
+
+    with pytest.raises(NotImplementedError):
+        asyncio.run(client.main(8765, "localhost", 2, log_file=tmp_path / "nobody.txt"))
     servlet.terminate()
+
+
+def test_server_client(servlet, capsys, tmp_path):
+    """
+    this is not a typical way to write a data file, but is used here
+    since the assignment tasks include writing a file so I did this test
+    unconventionally
+    """
+    N = 2
+    fn = tmp_path / "test.log"
+
+    asyncio.run(client.main(8765, "localhost", N))
+    servlet.terminate()
+
+    stdout, stderr = capsys.readouterr()
+    fn.write_text(stdout.split("\n", 1)[1])
+
+    dat = fio.load_data(fn)
+    assert sorted(dat.keys()) == ["co2", "occupancy", "temperature"], "wrong keys"
